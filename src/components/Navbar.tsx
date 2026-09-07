@@ -65,7 +65,12 @@ export function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="link-underline text-xs tracking-[0.16em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+              className={cn(
+                "link-underline text-xs tracking-[0.16em] uppercase transition-colors",
+                scrolled
+                  ? "text-muted-foreground hover:text-foreground"
+                  : "text-hero-foreground/80 hover:text-hero-foreground",
+              )}
             >
               {l.label}
             </a>
@@ -86,7 +91,12 @@ export function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={open}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-secondary xl:hidden"
+            className={cn(
+              "inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors xl:hidden",
+              scrolled || open
+                ? "border-border text-foreground hover:bg-secondary"
+                : "border-hero-foreground/40 text-hero-foreground",
+            )}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
