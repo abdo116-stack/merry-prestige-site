@@ -41,10 +41,20 @@ export function Navbar() {
             className={cn("transition-all duration-500", scrolled ? "h-9 w-9" : "h-11 w-11")}
           />
           <span className="leading-tight">
-            <span className="block font-serif text-lg tracking-[0.14em] text-foreground uppercase">
+            <span
+              className={cn(
+                "block font-serif text-lg tracking-[0.14em] uppercase transition-colors duration-500",
+                scrolled || open ? "text-foreground" : "text-hero-foreground",
+              )}
+            >
               Merry Prestige
             </span>
-            <span className="block text-[0.6rem] tracking-[0.34em] text-muted-foreground uppercase">
+            <span
+              className={cn(
+                "block text-[0.6rem] tracking-[0.34em] uppercase transition-colors duration-500",
+                scrolled || open ? "text-muted-foreground" : "text-hero-foreground/70",
+              )}
+            >
               Pâtisserie • Traiteur
             </span>
           </span>
