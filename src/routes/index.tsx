@@ -1,24 +1,80 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { Gallery } from "@/components/Gallery";
+import { FloatingActions } from "@/components/FloatingActions";
+import {
+  About,
+  Contact,
+  Creations,
+  Experience,
+  Footer,
+  InstagramSection,
+  Traiteur,
+  Trust,
+} from "@/components/Sections";
+import { site } from "@/lib/site";
+
+const title = "Merry Prestige | Pâtisserie & Traiteur à Casablanca";
+const description =
+  "Merry Prestige – Pâtisserie & Traiteur à Casablanca. Découvrez nos créations gourmandes, plateaux, services traiteur et solutions pour vos événements à Hay Chrifa.";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Bakery",
+          name: "Merry Prestige",
+          description,
+          image: "/favicon.png",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Avenue Dakhla, à côté du marché Hay Chrifa",
+            addressLocality: "Casablanca",
+            addressCountry: "MA",
+          },
+          telephone: site.phones,
+          openingHours: "Mo-Su 09:00-21:00",
+          sameAs: [site.instagram],
+          servesCuisine: ["Pâtisserie", "Traiteur"],
+        }),
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <Trust />
+        <Creations />
+        <Gallery />
+        <Traiteur />
+        <Experience />
+        <About />
+        <InstagramSection />
+        <Contact />
+      </main>
+      <Footer />
+      <FloatingActions />
+    </>
   );
 }
